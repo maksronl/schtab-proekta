@@ -43,7 +43,7 @@
 ## 🚀 Запуск
 
 ### Требования
-- Docker и Docker Compose
+- Docker
 - Свободные порты `8000` и `5432`
 
 ### 1. Клонировать репозиторий
@@ -51,3 +51,17 @@
 ```bash
 git clone https://github.com/maksonl/shtab-proekta.git
 cd shtab-proekta
+
+---
+
+## 🐳 Запуск из готовых Docker-образов (.tar)
+
+В репозитории лежат готовые Docker-образы: `shtab-web.tar` и `shtab-bot.tar`.
+
+1. Загрузите образы в Docker:
+```bash
+docker load -i shtab-web.tar
+docker load -i shtab-bot.tar
+
+2. Запустить:
+docker-compose up -d
