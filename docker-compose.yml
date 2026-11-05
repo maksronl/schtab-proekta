@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: shtab_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  bot:
+    image: shtab-bot:latest
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - PYTHONUNBUFFERED=1
+      - DB_HOST=db
+      - DB_NAME=shtab_db
+      - DB_USER=user
+      - DB_PASSWORD=password
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  web:
+    image: shtab-web:latest
+    environment:
+      - DB_HOST=db
+      - DB_NAME=shtab_db
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - BOT_TOKEN=${BOT_TOKEN}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./web/uploads:/app/web/uploads
+
+volumes:
+  postgres_data:
