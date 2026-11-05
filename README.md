@@ -84,19 +84,19 @@ docker-compose up -d
 
 Если нужно запустить сервисы по отдельности (после загрузки образов):
 
-    -Запуск базы данных:
+Запуск базы данных:
 
 ```bash
 docker run -d --name shtab-db -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=shtab_db -p 5432:5432 postgres:15-alpine
 ```
 
-    -Запуск веб-приложения:
+Запуск веб-приложения:
 
 ```bash
 docker run -d --name shtab-web --link shtab-db:db -e DB_HOST=db -e DB_NAME=shtab_db -e DB_USER=user -e DB_PASSWORD=password -p 8000:8000 shtab-web:latest
 ```
 
-    -Запуск бота:
+Запуск бота:
 
 ```bash
 docker run -d --name shtab-bot --link shtab-db:db -e DB_HOST=db -e DB_NAME=shtab_db -e DB_USER=user -e DB_PASSWORD=password -e BOT_TOKEN=ваш_токен shtab-bot:latest
